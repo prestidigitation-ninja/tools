@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Extended Point Buy</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="col-lg-8 mx-auto p-4 py-md-5">
+      <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+        <a
+          href="/"
+          class="d-flex align-items-center text-body-emphasis text-decoration-none"
+        >
+          <span class="fs-4">Extended Point Buy</span>
+        </a>
+      </header>
+      <main>
+        <p class="text-center">Points Remaining</p>
+        <div class="d-flex mb-4">
+          <input
+            type="text"
+            id="pointBuyRemainingPoints"
+            class="form-control me-2 text-end"
+            placeholder="Current Sum"
+            disabled
+          />
+          <span class="align-self-center">/</span>
+          <input
+            type="number"
+            min="0"
+            id="pointBuyBudget"
+            class="form-control ms-2"
+            placeholder="Total Budget"
+          />
+        </div>
+        <div class="row g-3 m-4">
+          <div class="col">
+            <label for="abilityScoreStrength" class="form-label"
+              >Strength</label
+            >
+            <select class="form-select" id="abilityScoreStrength"></select>
+          </div>
+          <div class="col">
+            <label for="abilityScoreDexterity" class="form-label"
+              >Dexterity</label
+            >
+            <select class="form-select" id="abilityScoreDexterity"></select>
+          </div>
+          <div class="col">
+            <label for="abilityScoreConstitution" class="form-label"
+              >Constitution</label
+            >
+            <select class="form-select" id="abilityScoreConstitution"></select>
+          </div>
+          <div class="col">
+            <label for="abilityScoreIntelligence" class="form-label"
+              >Intelligence</label
+            >
+            <select class="form-select" id="abilityScoreIntelligence"></select>
+          </div>
+          <div class="col">
+            <label for="abilityScoreWisdom" class="form-label">Wisdom</label>
+            <select class="form-select" id="abilityScoreWisdom"></select>
+          </div>
+          <div class="col">
+            <label for="abilityScoreCharisma" class="form-label"
+              >Charisma</label
+            >
+            <select class="form-select" id="abilityScoreCharisma"></select>
+          </div>
+        </div>
+        <div class="accordion my-5 pb-5" id="advancedOptions">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#pointBuyCosts"
+                aria-expanded="false"
+                aria-controls="pointBuyCosts"
+              >
+                Configure Point Buy Costs
+              </button>
+            </h2>
+            <div
+              id="pointBuyCosts"
+              class="accordion-collapse collapse"
+              data-bs-parent="#advancedOptions"
+            >
+              <div class="accordion-body">
+                <div class="row mb-3">
+                  <div class="col-lg-8">
+                    <p>
+                      The default Extended Point Buy costs have been generated
+                      using a cubic regression formula that follows the standard
+                      costs, while extending the curve for both lower and higher
+                      scores. This is to enforce the rapidly increasing cost for
+                      scores above 15 and rapidly decreasing cost for scores
+                      below 8.
+                    </p>
+                    <p>
+                      By default, we do not allow negative score costs. This is
+                      done to avoid potentially imbalanced characters that could
+                      result from deducting points from lower scores to augment
+                      higher ones. This is an opinionated choice by the creator
+                      aiming to promote balanced and fairly distributed
+                      abilities across characters.
+                    </p>
+                    <p>
+                      However, this system is flexible and designed with
+                      customization in mind. As the Dungeon Master, if you wish
+                      to adjust the rule to better suit your campaign style,
+                      feel free to override this default setting. By enabling
+                      the &lsquo;Allow Negative Score Costs&rsquo; option, you
+                      can permit ability scores to have a negative cost.
+                    </p>
+                    <p>
+                      Please note, while there are no official rules for such an
+                      extension, this formula offers a practical approach to
+                      extend flexibility in character creation. Feel free to
+                      customise the score costs as per your campaign
+                      requirements.
+                    </p>
+                  </div>
+                  <div class="col-lg-4">
+                    <img
+                      src="./cubic-regression.png"
+                      class="img-fluid"
+                      alt="Cubic Regression Graph"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">1</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost1"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">6</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost6"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">11</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost11"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">16</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost16"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">2</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost2"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">7</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost7"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">12</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost12"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">17</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost17"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">3</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost3"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">8</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost8"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">13</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost13"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">18</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost18"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">4</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost4"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">9</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost9"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">14</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost14"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">19</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost19"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">5</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost5"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">10</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost10"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">15</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost15"
+                      placeholder="0"
+                    />
+                  </div>
+                  <div class="col input-group input-group-sm mb-3">
+                    <span class="input-group-text">20</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="abilityScoreCost20"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+                <div class="form-check pt-3 my-4 border-top">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="allowNegativeScoreCosts"
+                    checked
+                  />
+                  <label class="form-check-label" for="allowNegativeScoreCosts"
+                    >Allow Negative Score Costs</label
+                  >
+                  <label id="form-text" for="allowNegativeScoreCosts">
+                    By enabling &lsquo;Allow Negative Score Costs&rsquo;, you
+                    permit ability scores to have a negative cost. This means
+                    players can deduct points from these scores to amp up
+                    others. Note that this could possibly lead to characters
+                    with very imbalanced abilities. If this option is left
+                    disabled, all negative ability score costs will be ignored
+                    and treated as zero.
+                  </label>
+                </div>
+                <div class="d-grid justify-content-sm-end">
+                  <button
+                    type="reset"
+                    id="resetConfiguration"
+                    class="btn btn-danger"
+                  >
+                    Reset to Default Costs and Budget
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            Share this specific budget and cost setup with your players
+          </div>
+          <div class="card-body">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                id="shareLink"
+                class="form-control"
+                value=""
+                aria-label="share link"
+                readonly
+              />
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="copyShareLink"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer class="pt-5 my-5 text-body-secondary border-top">
+        <p>Created by <a href="https://paolorodriguez.com" class="link-secondary link-underline-opacity-10">Paolo Rodríguez</a> &copy; 2023</p>
+        <p>
+          This work includes material taken from the System Reference Document
+          5.1 (“SRD 5.1”) by Wizards of the Coast LLC and available at
+          https://dnd.wizards.com/resources/systems-reference-document. The SRD
+          5.1 is licensed under the Creative Commons Attribution 4.0
+          International License available at
+          https://creativecommons.org/licenses/by/4.0/legalcode.
+        </p>
+      </footer>
+    </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div
+        id="toastNotification"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="d-flex">
+          <div class="toast-body">Link copied!</div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+    <script src="bundle.js"></script>
+  </body>
+</html>
