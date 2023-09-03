@@ -36,6 +36,68 @@
     </style>
   </head>
   <body>
+    <div aria-live="polite" aria-atomic="true" class="position-relative">
+      <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div
+          id="linkCopiedToastNotification"
+          class="toast"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="d-flex">
+            <div class="toast-body">Link copied!</div>
+            <button
+              type="button"
+              class="btn-close me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+        <div
+          id="configLoadedToastNotification"
+          class="toast text-bg-success"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="d-flex">
+            <div class="toast-body">
+              Success! The custom configuration has been loaded and applied from
+              the link.
+            </div>
+            <button
+              type="button"
+              class="btn-close me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+        <div
+          id="configLoadingFailedToastNotification"
+          class="toast text-bg-danger"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          data-bs-autohide="false"
+        >
+          <div class="d-flex">
+            <div class="toast-body">
+              Oops! Unable to load the custom configuration as the link is
+              invalid. Applied the default configuration instead.
+            </div>
+            <button
+              type="button"
+              class="btn-close me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="col-xl-8 mx-auto p-4 py-md-5">
       <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
         <a
@@ -532,26 +594,6 @@
           https://creativecommons.org/licenses/by/4.0/legalcode.
         </p>
       </footer>
-    </div>
-
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div
-        id="toastNotification"
-        class="toast"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
-        <div class="d-flex">
-          <div class="toast-body">Link copied!</div>
-          <button
-            type="button"
-            class="btn-close me-2 m-auto"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
-      </div>
     </div>
 
     <script
